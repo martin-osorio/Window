@@ -1,6 +1,7 @@
 package com.window
 
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -214,7 +215,20 @@ fun SubmitMeasurementsButton(modifier: Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(onClick = { /*TODO*/ }) {
+        Button(
+            onClick = {
+                try {
+                    val sender = GMailSender("username@gmail.com", "password")
+                    sender.sendMail(
+                        "This is Subject",
+                        "This is Body",
+                        "user@gmail.com",
+                        "user@yahoo.com"
+                    )
+                } catch (e: Exception) {
+                    Log.e("SendMail", e.message, e)
+                }
+            }) {
             Text(
                 text = "Submit",
                 fontSize = 20.sp
